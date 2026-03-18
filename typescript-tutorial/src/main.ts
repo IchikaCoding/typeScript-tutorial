@@ -142,6 +142,7 @@ function wrapInArray(obj: string | string[]) {
   return obj;
 }
 
+// 早期リターンはundefinedじゃなくてvoidでいいかも？
 function getFirstChar(param: string[]): string | undefined {
   if (param.length === 0) return;
   //  配列の先頭要素の最初の1文字だけを返す

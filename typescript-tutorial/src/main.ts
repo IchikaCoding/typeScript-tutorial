@@ -58,6 +58,57 @@ class UserAccount {
 const user: User = new UserAccount("ichika", 22, false);
 console.log(user);
 
+type LockStates = "locked" | "unlocked";
+const lock: LockStates = "unlocked";
+if (lock === "unlocked") {
+  console.log("鍵を締めてください！");
+}
+// 問題をとく
+type PositiveOddNumbersUnderTen = 1 | 3 | 5 | 7 | 9;
+function pickNumber(n: PositiveOddNumbersUnderTen) {
+  const message = `picked: ${n}`;
+  console.log(message);
+}
+
+// windowオブジェクトにpickNumberプロパティにpickNumberメソッドを代入している
+// (window as any).pickNumber = pickNumber;
+
+pickNumber(5);
+
+const array: PositiveOddNumbersUnderTen[] = [1, 3];
+
+// value is PositiveOddNumbersUnderTenはもしisPositiveOddNumbersUnderTen関数がtrueを返したらvalueはPositiveOddNumbersUnderTenの型ですという意味（返り値はbooleanだけどね）
+// この関数の実行時だけvalueはPositiveOddNumbersUnderTen型になる
+// 引数の()の横にかく型は返り値の型。
+function isPositiveOddNumbersUnderTen(
+  value: number,
+): value is PositiveOddNumbersUnderTen {
+  return (
+    value === 1 || value === 3 || value === 5 || value === 7 || value === 9
+  );
+}
+const n: number = 2;
+// ここのなかでnがPositiveOddNumbersUnderTen型として使う
+if (isPositiveOddNumbersUnderTen(n)) {
+  console.log(`${n}は奇数です`);
+}
+
+function wrapInArray(obj: string | string[]): string[] | string {
+  if (typeof obj === "string") {
+    return [obj];
+  }
+  return obj;
+}
+const favoriteFoodArray: string[] = [
+  "さつまいも🍠",
+  "ミルクティー☕",
+  "いちご🍓",
+];
+const favoriteFoodString: string = "さつまいも🍠, ミルクティー☕, いちご🍓";
+console.log(wrapInArray(favoriteFoodString));
+
+// さつまいもレイティングようの型を作成する
+
 // -----------------2026-03-17------------
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section id="center">
@@ -111,5 +162,4 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="ticks"></div>
 <section id="spacer"></section>
 `;
-
 setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);

@@ -124,20 +124,27 @@ console.log(wrapAnyInArray(favoriteNumberArray));
 // wrapInArray で配列化をしてからという文章が読めてない
 // 先頭要素の最初の1文字だけを返す
 // shift()で配列を破壊している
-function wrapInArray(param: string | string[]): string | undefined {
-  if (param.length === 0) return;
-  if (typeof param === "string") {
-    // 空文字が来たときの対処を考える
-    const paramArray = [param];
-    const firstStringOfArray = paramArray.shift();
-    return firstStringOfArray;
+
+function wrapInArray(obj: string | string[]) {
+  if (typeof obj === "string") {
+    return [obj];
   }
-  return param.shift();
+  return obj;
 }
+
+function getFirstChar(param: string[]): string | undefined {
+  if (param.length === 0) return;
+  //  配列の先頭要素の最初の1文字だけを返す
+  // TODO: 配列で先頭要素を取得→インデックスで指定
+  // TODO: 最初の1文字の取得方法がわからない
+  const firstStringOfArray = param.shift();
+  return firstStringOfArray;
+}
+
 const blankArray: [] = [];
-console.log(wrapInArray(favoriteFoodString));
-console.log(wrapInArray(favoriteFoodArray));
-console.log(wrapInArray(blankArray));
+console.log(getFirstChar(favoriteFoodString));
+console.log(getFirstChar(favoriteFoodArray));
+console.log(getFirstChar(blankArray));
 
 // さつまいもレイティングようの型を作成する
 

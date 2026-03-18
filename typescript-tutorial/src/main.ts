@@ -75,6 +75,7 @@ function pickNumber(n: PositiveOddNumbersUnderTen) {
 
 pickNumber(5);
 
+// 練習1
 const array: PositiveOddNumbersUnderTen[] = [1, 3];
 
 // value is PositiveOddNumbersUnderTenはもしisPositiveOddNumbersUnderTen関数がtrueを返したらvalueはPositiveOddNumbersUnderTenの型ですという意味（返り値はbooleanだけどね）
@@ -93,8 +94,16 @@ if (isPositiveOddNumbersUnderTen(n)) {
   console.log(`${n}は奇数です`);
 }
 
-function wrapInArray(obj: string | string[]): string[] | string {
+// 練習2
+function wrapAnyInArray(
+  obj: string | number | (string | number)[],
+): (string | number)[] {
+  // 文字列ならカンマでスプリットする
   if (typeof obj === "string") {
+    // splitは文字列にのみ使える
+    const objArray = obj.split(", ");
+    return objArray;
+  } else if (typeof obj === "number") {
     return [obj];
   }
   return obj;
@@ -105,7 +114,30 @@ const favoriteFoodArray: string[] = [
   "いちご🍓",
 ];
 const favoriteFoodString: string = "さつまいも🍠, ミルクティー☕, いちご🍓";
+const favoriteNumberArray: number[] = [18, 22, 88];
+console.log(wrapAnyInArray(favoriteFoodString));
+console.log(wrapAnyInArray(favoriteFoodArray));
+console.log(wrapAnyInArray(favoriteNumberArray));
+
+// 練習3
+// 関数名が間違っている
+// wrapInArray で配列化をしてからという文章が読めてない
+// 先頭要素の最初の1文字だけを返す
+// shift()で配列を破壊している
+function wrapInArray(param: string | string[]): string | undefined {
+  if (param.length === 0) return;
+  if (typeof param === "string") {
+    // 空文字が来たときの対処を考える
+    const paramArray = [param];
+    const firstStringOfArray = paramArray.shift();
+    return firstStringOfArray;
+  }
+  return param.shift();
+}
+const blankArray: [] = [];
 console.log(wrapInArray(favoriteFoodString));
+console.log(wrapInArray(favoriteFoodArray));
+console.log(wrapInArray(blankArray));
 
 // さつまいもレイティングようの型を作成する
 

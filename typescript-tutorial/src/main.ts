@@ -95,6 +95,7 @@ if (isPositiveOddNumbersUnderTen(n)) {
 }
 
 // 練習2
+// 文字列と数値の混在した配列も受け取りたいときは(string | number)[]
 function wrapAnyInArray(
   obj: string | number | (string | number)[],
 ): (string | number)[] {
@@ -120,11 +121,20 @@ console.log(wrapAnyInArray(favoriteFoodArray));
 console.log(wrapAnyInArray(favoriteNumberArray));
 
 // 練習3
+// ーー問題文ーー
+// wrapInArray を使って、新しい関数 getFirstChar を作ってください。
+
+// 引数は string | string[]
+// まず wrapInArray で配列化する
+// 先頭要素の「最初の1文字」を返す
+// 空文字が来る可能性も考えて、戻り値の型を安全に設計すること
+
+// ーーー私のミスーーーー
 // 関数名が間違っている
 // wrapInArray で配列化をしてからという文章が読めてない
 // 先頭要素の最初の1文字だけを返す
 // shift()で配列を破壊している
-
+// 私の問題文の理解→wrapInArrayを実行→その返り値をgetFirstCharの引数にして最初の1文字だけを返す処理
 function wrapInArray(obj: string | string[]) {
   if (typeof obj === "string") {
     return [obj];

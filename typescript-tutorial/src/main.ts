@@ -135,6 +135,7 @@ console.log(wrapAnyInArray(favoriteNumberArray));
 // 先頭要素の最初の1文字だけを返す
 // shift()で配列を破壊している
 // 私の問題文の理解→wrapInArrayを実行→その返り値をgetFirstCharの引数にして最初の1文字だけを返す処理
+// TODO: 返り値の型を明示する
 function wrapInArray(obj: string | string[]) {
   if (typeof obj === "string") {
     return [obj];
@@ -142,20 +143,21 @@ function wrapInArray(obj: string | string[]) {
   return obj;
 }
 
-// 早期リターンはundefinedじゃなくてvoidでいいかも？
+// TODO: 早期リターンはundefinedじゃなくてvoidでいいかも？→この場合はundefinedが良いらしい
+// TODO: wrapInArrayをgetFirstCharの中で実行する
+// TODO: getFirstChar関数自体の引数が string | string[]です
 function getFirstChar(param: string[]): string | undefined {
   if (param.length === 0) return;
   //  配列の先頭要素の最初の1文字だけを返す
-  // TODO: 配列で先頭要素を取得→インデックスで指定
-  // TODO: 最初の1文字の取得方法がわからない
-  const firstStringOfArray = param.shift();
-  return firstStringOfArray;
+  // 最初の1文字の取得方法がわからない→string[0]の形で可能！
+  const firstCharOfArray = param[0]?.[0];
+  return firstCharOfArray;
 }
-
+// TODO: string[] に修正するらしい。空白も文字列なの？引数が文字列の配列だから？
 const blankArray: [] = [];
-console.log(getFirstChar(favoriteFoodString));
-console.log(getFirstChar(favoriteFoodArray));
-console.log(getFirstChar(blankArray));
+console.log(getFirstChar(wrapInArray(favoriteFoodString)));
+console.log(getFirstChar(wrapInArray(favoriteFoodArray)));
+console.log(getFirstChar(wrapInArray(blankArray)));
 
 // さつまいもレイティングようの型を作成する
 

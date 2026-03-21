@@ -76,7 +76,7 @@ function pickNumber(n: PositiveOddNumbersUnderTen) {
 pickNumber(5);
 
 // 練習1
-const array: PositiveOddNumbersUnderTen[] = [1, 3];
+// const array: PositiveOddNumbersUnderTen[] = [1, 3];
 
 // value is PositiveOddNumbersUnderTenはもしisPositiveOddNumbersUnderTen関数がtrueを返したらvalueはPositiveOddNumbersUnderTenの型ですという意味（返り値はbooleanだけどね）
 // この関数の実行時だけvalueはPositiveOddNumbersUnderTen型になる
@@ -135,29 +135,32 @@ console.log(wrapAnyInArray(favoriteNumberArray));
 // 先頭要素の最初の1文字だけを返す
 // shift()で配列を破壊している
 // 私の問題文の理解→wrapInArrayを実行→その返り値をgetFirstCharの引数にして最初の1文字だけを返す処理
-// TODO: 返り値の型を明示する
-function wrapInArray(obj: string | string[]) {
+// 返り値の型を明示する
+function wrapInArray(obj: string | string[]): string[] {
   if (typeof obj === "string") {
     return [obj];
   }
   return obj;
 }
 
-// TODO: 早期リターンはundefinedじゃなくてvoidでいいかも？→この場合はundefinedが良いらしい
-// TODO: wrapInArrayをgetFirstCharの中で実行する
-// TODO: getFirstChar関数自体の引数が string | string[]です
-function getFirstChar(param: string[]): string | undefined {
+// wrapInArrayをgetFirstCharの中で実行する
+// getFirstChar関数自体の引数が string | string[]です
+function getFirstChar(param: string | string[]): string | undefined {
+  // 早期リターンはundefinedを返す。voidは返り値なしの意。
   if (param.length === 0) return;
+  const convertedArray = wrapInArray(param);
   //  配列の先頭要素の最初の1文字だけを返す
   // 最初の1文字の取得方法がわからない→string[0]の形で可能！
-  const firstCharOfArray = param[0]?.[0];
+  const firstCharOfArray = convertedArray[0]?.[0];
   return firstCharOfArray;
 }
-// TODO: string[] に修正するらしい。空白も文字列なの？引数が文字列の配列だから？
-const blankArray: [] = [];
-console.log(getFirstChar(wrapInArray(favoriteFoodString)));
-console.log(getFirstChar(wrapInArray(favoriteFoodArray)));
-console.log(getFirstChar(wrapInArray(blankArray)));
+// string[] に修正する。
+// TODO: []という型を書いたら長さ0のタプル型って言っていた。: [] は「絶対に空のまま」を表したいとき向け
+const blankArray: string[] = [];
+console.log(getFirstChar(favoriteFoodString));
+console.log(getFirstChar(favoriteFoodArray));
+console.log(getFirstChar(blankArray));
+console.log(getFirstChar(""));
 
 // さつまいもレイティングようの型を作成する
 

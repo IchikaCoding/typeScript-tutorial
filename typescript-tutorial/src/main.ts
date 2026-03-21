@@ -162,7 +162,43 @@ console.log(getFirstChar(favoriteFoodArray));
 console.log(getFirstChar(blankArray));
 console.log(getFirstChar(""));
 
-// さつまいもレイティングようの型を作成する
+type NewUser = {
+  id: number;
+  name: string;
+  isActive: boolean;
+  tags: string[];
+};
+
+const newUser: NewUser = {
+  id: 15,
+  name: "ichigo🍓",
+  isActive: false,
+  tags: ["beginner", "buffet"],
+};
+console.log(newUser);
+
+// Literal型は「値そのもの」を型として扱うもの
+// Literal型で候補を限定するとタイプミスにもコンパイル時にエラーに気づける
+type Status = "idle" | "loading" | "success" | "error";
+const status: Status = "success";
+const badStatus: Status = "idle";
+console.log(`status: ${status}, badStatus: ${badStatus}`);
+
+type Lesson = {
+  title: string;
+  difficulty: "beginner" | "intermediate"; // |はパイプ。Union型
+};
+
+function printLesson(lesson: Lesson): void {
+  console.log(`${lesson.title}（${lesson.difficulty}）`);
+}
+// TODO: 型推論に任せる事ができますか？
+const lesson: Lesson = {
+  title: "いちかのお勉強会with cake🍰",
+  difficulty: "intermediate",
+};
+// TODO: lesson: Lessonは実引数には書けないのはどうして？
+printLesson(lesson);
 
 // -----------------2026-03-17------------
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `

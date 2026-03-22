@@ -223,19 +223,6 @@ function lessonType(): void {
 }
 lessonType();
 
-// オブジェクトの状態設計に使う
-function practice() {
-  // 最初のユニオン型は各候補の位置を揃えるために入っているから必須ではない！
-  type FetchState =
-    | { status: "idle" }
-    | { status: "loading" }
-    | { status: "success"; data: string[] }
-    | { status: "error"; message: string };
-  const status: FetchState = { status: "error", message: "エラーです" };
-  console.log(status);
-}
-practice();
-
 // 引数がstring | number
 // 文字列なら大文字にして返す、数値なら小数第2位まで表示して文字列で返す
 function formatValue(value: string | number): string {
@@ -279,6 +266,44 @@ console.log(move(hawkFunc));
 console.log(move(penguinFunc));
 
 //  判別可能Union（discriminated union）を使う
+type FetchState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: string[] }
+  | { status: "error"; message: string };
+
+// FetchState型のstateが引数でstringを返すrenderMessage関数を作成
+// statusに合わせてメッセージを表示する処理
+function renderMessage(state: FetchState): string {
+  // TODO: switchって状態とかで分岐したいときに使うくらい？他の使用例はどんな感じ？
+  // status の値で型で条件分岐している👉️そこで型が確定するため、Reactの状態管理でも使いやすいパターン！
+  switch (state.status) {
+    case "idle":
+      return "待機中です(●'◡'●)ﾆｯｺﾘ";
+    case "loading":
+      return "読み込み中です(❁´◡`❁)ｳﾌﾌ…";
+    case "success":
+      return `成功件数:${state.data.length}(*´σｰ｀)ｴﾍﾍ。`;
+    case "error":
+      return `エラーです(;´д｀)ﾄﾎﾎ…: ${state.message}`;
+  }
+}
+
+const idleData: FetchState = { status: "idle" };
+const loadingData: FetchState = { status: "loading" };
+const successData: FetchState = {
+  status: "success",
+  data: ["さつまいも🍠", "いちご🍓", "シュークリーム（カスタード）🌕"],
+};
+const errorData: FetchState = {
+  status: "error",
+  message: "We are out of stock of cream puffs🌕.",
+};
+
+console.log(renderMessage(idleData));
+console.log(renderMessage(loadingData));
+console.log(renderMessage(successData));
+console.log(renderMessage(errorData));
 
 // -----------------2026-03-17------------
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `

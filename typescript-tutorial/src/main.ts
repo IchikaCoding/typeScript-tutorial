@@ -200,6 +200,86 @@ const lesson: Lesson = {
 // TODO: lesson: Lessonは実引数には書けないのはどうして？
 printLesson(lesson);
 
+// 2026-03-22
+function printId(id: string | number): void {
+  console.log(id);
+}
+printId("社会人1年目のいちかでーす");
+
+function lessonType(): void {
+  //  候補値を Literal型で制限する
+  // ! 複雑な型は type で名前を付けて管理する
+  type Difficulty = "beginner" | "intermediate" | "advanced";
+  type LessonTwo = {
+    title: string;
+    difficulty: Difficulty;
+  };
+
+  const LessonWithIchika: LessonTwo = {
+    title: "Let's study programming",
+    difficulty: "beginner",
+  };
+  console.log(LessonWithIchika);
+}
+lessonType();
+
+// オブジェクトの状態設計に使う
+function practice() {
+  // 最初のユニオン型は各候補の位置を揃えるために入っているから必須ではない！
+  type FetchState =
+    | { status: "idle" }
+    | { status: "loading" }
+    | { status: "success"; data: string[] }
+    | { status: "error"; message: string };
+  const status: FetchState = { status: "error", message: "エラーです" };
+  console.log(status);
+}
+practice();
+
+// 引数がstring | number
+// 文字列なら大文字にして返す、数値なら小数第2位まで表示して文字列で返す
+function formatValue(value: string | number): string {
+  // ifの中と外でvalueの型を制限している👉️これをNarrowingという
+  if (typeof value === "string") {
+    // このif文の中ではvalueはstring型
+    return value.toUpperCase();
+  }
+  // ifの外ではvalueはnumber型
+  return value.toFixed(2);
+}
+
+// in でオブジェクトの形を判定する
+
+// TODO: Bird型のflyプロパティの値は返り値のない関数型になるという意味？！
+type Bird = { fly: () => void };
+type Fish = { swim: () => void };
+
+// move関数でも、プロパティキーで条件分岐をすることでNarrowingが発動
+function move(animal: Bird | Fish): void {
+  if ("fly" in animal) {
+    animal.fly();
+    return;
+  }
+  animal.swim();
+  // TODO: returnっている？
+  return;
+}
+
+const hawkFunc: Bird = {
+  fly: () => {
+    console.log("パタパタ🦅");
+  },
+};
+const penguinFunc = {
+  swim: () => {
+    console.log("スイスイ🐧");
+  },
+};
+console.log(move(hawkFunc));
+console.log(move(penguinFunc));
+
+//  判別可能Union（discriminated union）を使う
+
 // -----------------2026-03-17------------
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section id="center">

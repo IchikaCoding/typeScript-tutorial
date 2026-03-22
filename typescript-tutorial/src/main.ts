@@ -148,10 +148,10 @@ function wrapInArray(obj: string | string[]): string[] {
 function getFirstChar(param: string | string[]): string | undefined {
   // 早期リターンはundefinedを返す。voidは返り値なしの意。
   if (param.length === 0) return;
-  const convertedArray = wrapInArray(param);
+  const convertedArray: string[] = wrapInArray(param);
   //  配列の先頭要素の最初の1文字だけを返す
   // 最初の1文字の取得方法がわからない→string[0]の形で可能！
-  const firstCharOfArray = convertedArray[0]?.[0];
+  const firstCharOfArray: string = convertedArray[0]?.[0];
   return firstCharOfArray;
 }
 // string[] に修正する。

@@ -305,6 +305,27 @@ console.log(renderMessage(loadingData));
 console.log(renderMessage(successData));
 console.log(renderMessage(errorData));
 
+// null / undefined の判別（最重要）
+// Message型としてプロパティがcontentで値が文字列なものを作成
+// logMessage関数では、Message型かnull型を引数にして返り値はない
+// Message型のときだけコンソールを出力
+
+type Message = { content: string };
+function logMessage(message: Message | null): void {
+  // ガード節。messageがnull型のときはif文内だけで早期リターン
+  if (message === null) {
+    console.log("messageはnullです(;´д｀)ﾄﾎﾎ…", message);
+    return;
+  }
+  // messageがMessage型のときはこっちが実行される
+  console.log(message);
+}
+const messageToEveryone: Message = {
+  content: "世界の美味しいものをいただきまーす٩(ˊᗜˋ*)وｴﾍ",
+};
+logMessage(messageToEveryone);
+logMessage(null);
+
 // -----------------2026-03-17------------
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section id="center">

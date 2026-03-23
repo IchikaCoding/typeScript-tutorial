@@ -252,6 +252,7 @@ function move(animal: Bird | Fish): void {
   return;
 }
 
+// TODO: Funcじゃない！！JSのオブジェクト！
 const hawkFunc: Bird = {
   fly: () => {
     console.log("パタパタ🦅");
@@ -313,6 +314,7 @@ console.log(renderMessage(errorData));
 type Message = { content: string };
 function logMessage(message: Message | null): void {
   // ガード節。messageがnull型のときはif文内だけで早期リターン
+  // nullは実行時には値として判定。コンパイル時にはnull型として判定（Narrowing）
   if (message === null) {
     console.log("messageはnullです(;´д｀)ﾄﾎﾎ…", message);
     return;

@@ -39,3 +39,21 @@ function practiceIntersection(): void {
   console.log(satsumaimoInfo);
 }
 practiceIntersection();
+
+// 引数と返り値の型を明示する
+
+function greet(name: string): string {
+  return `${name}さん、よろしくね🌸`;
+}
+console.log(greet("さつまいも🍠"));
+
+// suffix?: string は省略可能（オプショナル引数）（省略するとundefinedになります）
+// prefix = "Hi" は未指定時に既定値が使われる（デフォルト引数）
+function buildMessage(name: string, prefix = "Hi", suffix?: string): string {
+  const base = `${prefix}, ${name}さん`;
+  return suffix ? `${base}. ${suffix}` : base;
+}
+
+console.log(buildMessage("ichika", "konchika", "oyasumi~!!"));
+// もしprefixはデフォルト、 suffixは入れたい場合、第2引数にundefinedをいれる
+console.log(buildMessage("ichika", undefined, "oyasumi~!!"));

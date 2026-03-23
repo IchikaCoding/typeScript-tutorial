@@ -59,6 +59,7 @@ console.log(buildMessage("ichika", "konchika", "oyasumi~!!"));
 console.log(buildMessage("ichika", undefined, "oyasumi~!!"));
 
 // 関数シグネチャで型を定義する練習をする
+// 関数シグネチャとは？👉️関数の定義のうち“型の部分”がシグネチャ。引数の型・個数（必要なら順序）とか自体が関数シグネチャ。戻り値の型も関数シグネチャ。関数シグネチャに含まないものは関数の中身（処理内容）とか関数名そのものとか。
 // 関数型の書き方は、(引数とその型)=>戻り値の型
 type Calculator = (a: number, b: number) => number;
 // aとbを掛け算する関数を作成
@@ -74,3 +75,16 @@ function someCalc(a: number, b: number, calc: Calculator): number {
 const calculatorFunc: Calculator = (a, b) => a * b;
 console.log("multiply", someCalc(2, 4, multiply));
 console.log("calculatorFunc", someCalc(2, 4, calculatorFunc));
+
+// OnSuccess型を作成。引数文字列、返り値なし
+type OnSuccess = (message: string) => void;
+// runTask関数は、引数がOnSuccess型で返り値なし、処理はOnSuccess型の関数に文字列を渡す。
+function runTask(onSuccess: OnSuccess): void {
+  onSuccess("準備って大切💕Preparation is important 💕");
+}
+
+// OnSuccess型の関数を作成して文字列をコンソールに表示する処理を定義
+function onSuccess(message: string): void {
+  console.log(message);
+}
+runTask(onSuccess);

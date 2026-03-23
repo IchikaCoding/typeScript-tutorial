@@ -88,3 +88,24 @@ function onSuccess(message: string): void {
   console.log(message);
 }
 runTask(onSuccess);
+
+// ジェネリック関数を定義してみよう！
+// firstItem関数で、代入したときに配列が文字列か数値か決まる関数
+function firstItem<T>(items: T[]): T | undefined {
+  return items[0];
+}
+// 配列の要素はnumber型だから、Tはnumber、返り値はnumber | undefinedと推論される
+console.log(firstItem([15, 2525, 8181]));
+// 配列の要素はstring型だから、Tはstring、返り値はstring | undefinedと推論される
+console.log(firstItem(["🍓", "☺️", "👶"]));
+
+// 複数の型引数を使ってみよう♪
+// pair関数の引数がkey,valueのプロパティを持つオブジェクトで型は後から決まる
+// 返り値はkey,valueのオブジェクト
+
+function pair<K, V>(key: K, value: V): { key: K; value: V } {
+  // TODO: 省略できるやつは何ていうの？
+  return { key, value };
+}
+
+// 2026-03-23ここまで（pair関数の途中。引数入れて実行してみよう！）

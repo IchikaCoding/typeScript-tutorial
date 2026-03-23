@@ -57,3 +57,20 @@ function buildMessage(name: string, prefix = "Hi", suffix?: string): string {
 console.log(buildMessage("ichika", "konchika", "oyasumi~!!"));
 // もしprefixはデフォルト、 suffixは入れたい場合、第2引数にundefinedをいれる
 console.log(buildMessage("ichika", undefined, "oyasumi~!!"));
+
+// 関数シグネチャで型を定義する練習をする
+// 関数型の書き方は、(引数とその型)=>戻り値の型
+type Calculator = (a: number, b: number) => number;
+// aとbを掛け算する関数を作成
+function multiply(a: number, b: number): number {
+  return a * b;
+}
+// calc関数を使用してaとbの掛け算をする
+// calcって何をいれるの？👉️関数の定義
+function someCalc(a: number, b: number, calc: Calculator): number {
+  return calc(a, b);
+}
+
+const calculatorFunc: Calculator = (a, b) => a * b;
+console.log("multiply", someCalc(2, 4, multiply));
+console.log("calculatorFunc", someCalc(2, 4, calculatorFunc));

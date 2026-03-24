@@ -156,3 +156,17 @@ function printLength<T extends { length: number }>(value: T): void {
 
 const funVariable = { name: "ヒール👠", length: 7, rating: "★★" };
 printLength(funVariable);
+
+// unknown は「使う前に確認する」
+function countNumOfChar(value: unknown): void {
+  //   このif文ではvalueはstring型にしぼり込める→プロパティアクセスやメソッド呼び出しができる
+  if (typeof value === "string") {
+    console.log("valueの文字数：", value.length);
+  }
+  //   型を絞り込んでいない→プロパティアクセスやメソッド呼び出しができません。
+  //   引数を表示するだけならいける！
+  console.log(value);
+}
+
+countNumOfChar("ichika");
+countNumOfChar(123);

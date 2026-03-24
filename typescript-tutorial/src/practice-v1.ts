@@ -145,3 +145,14 @@ const foodInfo: ApiResponse<Food> = {
 
 console.log(dataInfo);
 console.log(foodInfo);
+
+// 制約（extends）を付ける
+// 制約をつけると、引数で受け取ったオブジェクトのなかでlengthプロパティだけ受け取る
+function printLength<T extends { length: number }>(value: T): void {
+  //   valueは他のプロパティもあるけど、制約によってlengthのみ指定可能
+  console.log(value.length);
+  //   console.log(value.name);
+}
+
+const funVariable = { name: "ヒール👠", length: 7, rating: "★★" };
+printLength(funVariable);

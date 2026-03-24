@@ -102,10 +102,12 @@ console.log(firstItem(["🍓", "☺️", "👶"]));
 // 複数の型引数を使ってみよう♪
 // pair関数の引数がkey,valueのプロパティを持つオブジェクトで型は後から決まる
 // 返り値はkey,valueのオブジェクト
-
+// TODO: { key: K; value: V }って名無し型？👉️Objectという型だと推論をしてくれる。Object型よりプロパティの値の型注釈を書くことのほうが大切。今回は省略も可能
 function pair<K, V>(key: K, value: V): { key: K; value: V } {
-  // TODO: 省略できるやつは何ていうの？
+  // ! 省略できるやつは何ていうの？👉️オブジェクトリテラルのプロパティ省略記法（shorthand）
   return { key, value };
 }
 
-// 2026-03-23ここまで（pair関数の途中。引数入れて実行してみよう！）
+// 引数2つです。pair関数がオブジェクトを作成する関数だから引数だけ渡す
+const obj = pair("さつまいも🍠", 15); // Kがstring, Vがnumberと型推論される
+console.log(obj);

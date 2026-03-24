@@ -170,3 +170,15 @@ function countNumOfChar(value: unknown): void {
 
 countNumOfChar("ichika");
 countNumOfChar(123);
+
+// any は最終手段としておく練習
+let value: any = "konchika!";
+value = [1, 2, 3];
+// console.log(value.notExistingMethod());
+
+// neverは呼び出し元に戻らず、処理が中断するときに書く
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+console.log(throwError("中断します"));

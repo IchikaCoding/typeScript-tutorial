@@ -111,3 +111,37 @@ function pair<K, V>(key: K, value: V): { key: K; value: V } {
 // 引数2つです。pair関数がオブジェクトを作成する関数だから引数だけ渡す
 const obj = pair("さつまいも🍠", 15); // Kがstring, Vがnumberと型推論される
 console.log(obj);
+
+// ジェネリック型（type）を定義する
+// ApiResponse型を作成、dataプロパティの型を型変数としておく
+// User型はidとnameがプロパティ
+
+type ApiResponse<T> = {
+  data: T;
+  message: string;
+};
+
+type User = {
+  id: number;
+  name: string;
+};
+
+type Food = {
+  name: string;
+  rating: string;
+};
+
+// TODO: Userをどこで使用していますよってどこで伝える？
+const dataInfo: ApiResponse<User> = {
+  // User型を指定したからTの型がUserになる👉️dataはUser型と型推論される！
+  data: { id: 15, name: "ichika-chan" },
+  message: "Hello",
+};
+
+const foodInfo: ApiResponse<Food> = {
+  data: { name: "いちご🍓", rating: "★★★" },
+  message: "いちごっておいしい(❁´◡`❁)",
+};
+
+console.log(dataInfo);
+console.log(foodInfo);

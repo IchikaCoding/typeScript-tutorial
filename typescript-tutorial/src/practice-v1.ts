@@ -209,7 +209,7 @@ function defineTypes() {
   console.log(a);
   console.log(str);
   // 型アサーションでTSの型チェックをスキップ👉️コンパイル時にはエラーはなし,実行時にようやくエラーになる
-  console.log(str.toUpperCase());
+  // console.log(str.toUpperCase());
 })();
 
 // HTMLInputかnullを取得するmaybeInputを作成する,IDは"name"
@@ -219,3 +219,65 @@ const maybeInput = document.getElementById("name") as HTMLInputElement | null;
 if (maybeInput) {
   console.log(maybeInput.value);
 }
+
+//  as const でオブジェクトを固定する
+// as const を使用してLiteral型でlessonsの型を定義
+// beginnerプロパティの値は"ケーキ入門🍰"という文字列しか入らないという状態になっている？
+
+// lessonsは変数
+const lessons = {
+  beginner: "ケーキ入門🍰",
+  advanced: "ケーキにあうコーヒーの選び方☕",
+} as const;
+
+console.log(lessons);
+
+// TODO: keyofはどうしてエラーになったのか調べる
+// typeof lessonsはobject型だとわかる
+// keyofとは？👉️オブジェクトのプロパティ名を取得できるやつ
+// LessonKeyは"beginner" | "advanced"
+// TODO: プロパティ名って文字列？
+type LessonKey = keyof typeof lessons;
+
+// ブラケット記法でオブジェクトのプロパティを指定できる
+console.log(lessons["beginner"]);
+
+// 引数には"beginner" | "advanced"しか入らない(文字列リテラル型のユニオン)👉️引数をミスったらすぐにわかる！
+function getLesson(key: keyof typeof lessons) {
+  return lessons[key];
+}
+
+console.log(getLesson("beginner")); // OK
+// console.log(getLesson("middle")); // エラー
+
+//  -----配列にも as const を使える------
+// levelArrayにas const つけたからLevelの要素が固定される
+const levelArray = ["beginner", "intermediate", "advanced"] as const;
+// levelArrayという配列から型を作成。
+// typeof levelArrayでreadonly ["beginner", "intermediate", "advanced"]になる
+// [0]とかなら"beginner",[number]は全部まとめた型になる。
+// 👉️"beginner" | "intermediate" | "advanced"
+type Level = (typeof levelArray)[number];
+
+const levelOfIchika1: Level = "beginner";
+const levelOfIchika2: Level = levelArray[2];
+console.log(levelArray);
+console.log(levelOfIchika1);
+console.log(levelOfIchika2);
+
+// 配列でas constの練習する関数
+function printMeals(): void {
+  // 型のLiteral型になる配列を作成
+  const myMeals = [
+    "cake🍰",
+    "さつまいも🍠",
+    "coffee☕",
+    "クロワッサン🥐",
+  ] as const;
+  // 配列を利用して型を作成👉️myMealsからユニオン型を作成
+  type Meal = (typeof myMeals)[number];
+  // コンソールで見てみる
+  const eatingNow: Meal[] = ["クロワッサン🥐", "coffee☕"];
+  console.log(eatingNow);
+}
+printMeals();

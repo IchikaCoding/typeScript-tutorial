@@ -192,7 +192,7 @@ function defineTypes() {
 }
 
 (() => {
-  const arr = [];
+  const arr = ["a"];
   // 戻り値はarrが空配列の可能性があるためundefinedも含む
   // Tは空の配列じゃないというとこを表すことも可能！[T, ...T[]]
   function first<T>(arr: T[]): T | undefined {

@@ -250,7 +250,7 @@ function getLesson(key: keyof typeof lessons) {
 console.log(getLesson("beginner")); // OK
 // console.log(getLesson("middle")); // エラー
 
-//  -----配列にも as const を使える------
+//  -----配列にも as const を使える------（配列の値からUnion型を安全に作れます。）
 // levelArrayにas const つけたからLevelの要素が固定される
 const levelArray = ["beginner", "intermediate", "advanced"] as const;
 // levelArrayという配列から型を作成。

@@ -181,4 +181,41 @@ function throwError(message: string): never {
   throw new Error(message);
 }
 
-console.log(throwError("中断します"));
+// console.log(throwError("中断します"));
+
+// 型アサーションとas const
+function defineTypes() {
+  // 自分で型を言い切っているのが型アサーション
+  const message = "こんちか★" as string;
+  // TODO: これは新しいloading型を作成しているって理解でいいのかな？
+  let status = "loading" as const;
+}
+
+(() => {
+  const arr = [];
+  // 戻り値はarrが空配列の可能性があるためundefinedも含む
+  // Tは空の配列じゃないというとこを表すことも可能！[T, ...T[]]
+  function first<T>(arr: T[]): T | undefined {
+    return arr[0];
+  }
+  // Tがstringだと型推論される
+  // arrが空配列だからstringなのかnumberなのかわからない👉️arrがany[]になってしまう
+  // 空配列の場合aにはundefinedが入る
+  const a = first(arr);
+  // 型アサーションでstringですよって伝えた👉️TSの型チェックはスキップさせる
+  // 空配列なのに、strがstring型だと伝えている👉️str.toUpperCase()を実行すると中身は undefined だからクラッシュ
+  // aは文字列型ですよ、そのaをstrに代入
+  const str = a as string;
+  console.log(a);
+  console.log(str);
+  // 型アサーションでTSの型チェックをスキップ👉️コンパイル時にはエラーはなし,実行時にようやくエラーになる
+  console.log(str.toUpperCase());
+})();
+
+// HTMLInputかnullを取得するmaybeInputを作成する,IDは"name"
+// maybeInputがあるならコンソールに値を表示する
+
+const maybeInput = document.getElementById("name") as HTMLInputElement | null;
+if (maybeInput) {
+  console.log(maybeInput.value);
+}

@@ -115,37 +115,37 @@ console.log(obj);
 // ジェネリック型（type）を定義する
 // ApiResponse型を作成、dataプロパティの型を型変数としておく
 // User型はidとnameがプロパティ
+function tempFunc() {
+  type ApiResponse<T> = {
+    data: T;
+    message: string;
+  };
 
-type ApiResponse<T> = {
-  data: T;
-  message: string;
-};
+  type User = {
+    id: number;
+    name: string;
+  };
 
-type User = {
-  id: number;
-  name: string;
-};
+  type Food = {
+    name: string;
+    rating: string;
+  };
 
-type Food = {
-  name: string;
-  rating: string;
-};
+  // TODO: Userをどこで使用していますよってどこで伝える？
+  const dataInfo: ApiResponse<User> = {
+    // User型を指定したからTの型がUserになる👉️dataはUser型と型推論される！
+    data: { id: 15, name: "ichika-chan" },
+    message: "Hello",
+  };
 
-// TODO: Userをどこで使用していますよってどこで伝える？
-const dataInfo: ApiResponse<User> = {
-  // User型を指定したからTの型がUserになる👉️dataはUser型と型推論される！
-  data: { id: 15, name: "ichika-chan" },
-  message: "Hello",
-};
+  const foodInfo: ApiResponse<Food> = {
+    data: { name: "いちご🍓", rating: "★★★" },
+    message: "いちごっておいしい(❁´◡`❁)",
+  };
 
-const foodInfo: ApiResponse<Food> = {
-  data: { name: "いちご🍓", rating: "★★★" },
-  message: "いちごっておいしい(❁´◡`❁)",
-};
-
-console.log(dataInfo);
-console.log(foodInfo);
-
+  console.log(dataInfo);
+  console.log(foodInfo);
+}
 // 制約（extends）を付ける
 // 制約をつけると、引数で受け取ったオブジェクトのなかでlengthプロパティだけ受け取る
 function printLength<T extends { length: number }>(value: T): void {
@@ -281,3 +281,33 @@ function printMeals(): void {
   console.log(eatingNow);
 }
 printMeals();
+
+// 2026-03-26
+
+// 基本的なクラス定義
+// Userクラスを作成している
+class User {
+  // Userクラスの外部から参照・変更できる変数name（string型）
+  public name: string;
+  // private なのでクラス外から直接触れないloginCount変数（number型）
+  private loginCount: number;
+  // コンストラクタはインスタンスを作成するときに自動で実行される初期化処理
+  // コンストラクタではそこで「そのインスタンスが最初に持つ値」を設定する
+  // 引数が文字列nameでそれをこのUserクラスのnameに代入
+  // loginCount変数には0を代入する
+  constructor(name: string) {
+    this.name = name;
+    this.loginCount = 0;
+  }
+  // どこからでも使える（アクセスできる）login関数を作成、戻り値なし
+  // 戻り値と返り値って同じ？👉️関数が return で返す値という意味で同じ
+  public login(): void {
+    // loginCount変数に1を足す処理
+    this.loginCount += 1;
+  }
+  // どこからでも使える（アクセスできる）getLoginCount関数を作成、戻り値がnumber
+  public getLoginCount(): number {
+    // この関数が実行されたらloginCountの値を返す
+    return this.loginCount;
+  }
+}

@@ -329,3 +329,29 @@ class Lesson {
 // インスタンスの引数はなに？👉️コンストラクタにわたすための引数
 const vlogV1 = new Lesson(15, "いちかの成長Vlog");
 console.log(vlogV1);
+
+// protected と継承
+// Animalクラスを作成
+class Animal {
+  // Animalクラスのnameプロパティを文字列で宣言👉️nameは変数じゃない！
+  // protectedだからクラス内部と継承先のみで使用可能。
+  protected name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+// readonlyのときは外部からでもアクセス可能なの？👉️再代入不可なだけでアクセス範囲は決めてない。アクセス範囲を決めるアクセス修飾子といっしょに使うといいかも！
+// AnimalクラスをDogクラスに継承
+class Dog extends Animal {
+  // Dogクラスにbarkメソッドを追加。文字列を返す
+  bark(): string {
+    // Animalクラスのnameを使用
+    return `${this.name}が吠えたよyey yey`;
+  }
+}
+// インスタンスを作成するときに引数はAnimalクラスのコンストラクタが動く
+const myDog = new Dog("チャッピー");
+// Dogクラスのbark()メソッドが実行されて、文字列が返ってきて、それをコンソールに表示
+console.log(myDog.bark());
+// console.log(myDog.name);はクラス内部でも継承先でもないから実行出来ない！

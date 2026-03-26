@@ -293,7 +293,7 @@ class User {
   private loginCount: number;
   // コンストラクタはインスタンスを作成するときに自動で実行される初期化処理
   // コンストラクタではそこで「そのインスタンスが最初に持つ値」を設定する
-  // 引数が文字列nameでそれをこのUserクラスのnameに代入
+  // 引数が文字列nameでそれをUserインスタンスのnameに代入👉️thisはインスタンスの数だけ存在する！
   // loginCount変数には0を代入する
   constructor(name: string) {
     this.name = name;
@@ -311,3 +311,21 @@ class User {
     return this.loginCount;
   }
 }
+
+// readonly を使ってみよう♪
+class Lesson {
+  // idは数値型。コンストラクタで初期化されたら変更不可になる。読み取り専用になる。外部からもアクセス可能
+  public readonly id: number;
+  // titleは文字列型。外部からもアクセス可能
+  public title: string;
+  // コンストラクタの引数ってどこで取得するの？
+  // クラスの使い方は new Lesson()で、引数はどこ？
+  constructor(id: number, title: string) {
+    this.id = id;
+    this.title = title;
+  }
+}
+// TODO: どこで使うかイメージが沸かないけど一旦インスタンス作って見た
+// インスタンスの引数はなに？👉️コンストラクタにわたすための引数
+const vlogV1 = new Lesson(15, "いちかの成長Vlog");
+console.log(vlogV1);

@@ -16,11 +16,15 @@
 
     /* Linting */
     "strict": true,
+    // null / undefined を明示的に扱う事ができる
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    // 型推論ができないところで暗黙的に`any`になることを防ぐ
+    "noImplicitAny": true
   },
   "include": ["src"]
 }
